@@ -17,7 +17,7 @@ async function loadMessDetails() {
     }
 
     try {
-        const response = await fetch(https://messmatefinder.onrender.com/api/messes/" + id);
+        const response = await fetch("http://127.0.0.1:5000/api/messes/" + id);
 
         if (!response.ok) {
             throw new Error("Unable to fetch mess details");

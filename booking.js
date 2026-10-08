@@ -1,4 +1,4 @@
-const API_URL = https://messmatefinder.onrender.com/api/messes/;
+const API_URL = "http://127.0.0.1:5000/api";
 const messId = new URLSearchParams(window.location.search).get("id");
 
 const bookingForm = document.getElementById("bookingForm");
