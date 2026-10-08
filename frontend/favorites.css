@@ -1,0 +1,248 @@
+/* ============================= */
+/* GENERAL */
+/* ============================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+    background: #f6f7fb;
+    color: #222;
+}
+
+
+/* ============================= */
+/* HEADER */
+/* ============================= */
+
+header {
+    background: white;
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+    border-bottom: 1px solid #eee;
+
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+
+    font-size: 32px;
+}
+
+
+/* ============================= */
+/* BACK BUTTON */
+/* ============================= */
+
+.back-btn {
+    position: absolute;
+
+    left: 25px;
+    top: 32px;
+
+    text-decoration: none;
+
+    color: #222;
+
+    font-weight: bold;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    background: #f1f1f1;
+
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    background: #222;
+    color: white;
+}
+
+
+/* ============================= */
+/* MAIN */
+/* ============================= */
+
+main {
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 35px 0;
+}
+
+
+/* ============================= */
+/* FAVORITES GRID */
+/* ============================= */
+
+#favoritesContainer {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 25px;
+}
+
+
+/* ============================= */
+/* FAVORITE CARD */
+/* ============================= */
+
+.favorite-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    border: 1px solid #eee;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.07);
+
+    transition: 0.3s;
+}
+
+.favorite-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.favorite-card h2 {
+    margin-top: 0;
+
+    margin-bottom: 18px;
+
+    font-size: 21px;
+}
+
+.favorite-card p {
+    margin: 11px 0;
+
+    color: #555;
+}
+
+.favorite-rating {
+    font-weight: bold;
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    background: #f3f3f3;
+
+    border-radius: 20px;
+}
+
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.favorite-buttons {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.view-btn,
+.remove-btn {
+    flex: 1;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.view-btn {
+    background: #222;
+
+    color: white;
+}
+
+.view-btn:hover {
+    background: #444;
+}
+
+.remove-btn {
+    background: #eee;
+
+    color: #222;
+}
+
+.remove-btn:hover {
+    background: #ddd;
+}
+
+
+/* ============================= */
+/* NO FAVORITES */
+/* ============================= */
+
+.no-favorites {
+    text-align: center;
+
+    background: white;
+
+    padding: 50px 20px;
+
+    border-radius: 15px;
+
+    color: #777;
+
+    font-size: 18px;
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 600px) {
+
+    header h1 {
+        font-size: 26px;
+    }
+
+    .back-btn {
+        position: static;
+
+        display: inline-block;
+
+        margin-top: 15px;
+    }
+
+    main {
+        width: 94%;
+    }
+
+    #favoritesContainer {
+        grid-template-columns: 1fr;
+    }
+
+}

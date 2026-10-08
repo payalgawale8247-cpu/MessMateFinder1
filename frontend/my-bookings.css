@@ -1,0 +1,499 @@
+/* ============================= */
+/* GENERAL */
+/* ============================= */
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+
+/* ============================= */
+/* BOOKINGS CONTAINER */
+/* ============================= */
+
+.bookings-container {
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+
+/* ============================= */
+/* HEADING */
+/* ============================= */
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* ============================= */
+/* BACK BUTTON */
+/* ============================= */
+
+.back-btn {
+    display: inline-block;
+
+    margin-bottom: 20px;
+
+    padding: 10px 16px;
+
+    background: #222;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+}
+
+.back-btn:hover {
+    background: #444;
+}
+
+
+/* ============================= */
+/* BOOKINGS CONTAINER */
+/* ============================= */
+
+#bookingsContainer {
+    display: grid;
+    gap: 20px;
+}
+
+
+/* ============================= */
+/* BOOKING CARD */
+/* ============================= */
+
+.booking-card {
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-card h2 {
+    margin-top: 0;
+}
+
+.booking-card p {
+    margin: 10px 0;
+
+    font-size: 16px;
+}
+
+
+/* ============================= */
+/* BOOKING STATUS */
+/* ============================= */
+
+.status {
+    font-weight: bold;
+}
+
+
+/* ============================= */
+/* MEESHO STYLE CANCEL BUTTON */
+/* ============================= */
+
+.cancel-btn {
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 13px 18px;
+
+    background: white;
+
+    color: #d32f2f;
+
+    border: 1px solid #d32f2f;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.cancel-btn:hover {
+    background: #fff5f5;
+}
+
+
+/* ============================= */
+/* REFUND STATUS BOX */
+/* ============================= */
+
+.refund-box {
+    margin-top: 20px;
+
+    padding: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 8px;
+}
+
+
+/* ============================= */
+/* REFUND HEADING */
+/* ============================= */
+
+.refund-box h3 {
+    margin: 0 0 20px 0;
+
+    font-size: 18px;
+
+    color: #222;
+}
+
+
+/* ============================= */
+/* REFUND STATUS LINE */
+/* ============================= */
+
+.refund-line {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 8px 0;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+
+/* ============================= */
+/* REFUND ARROW */
+/* ============================= */
+
+.refund-arrow {
+    text-align: left;
+
+    padding-left: 7px;
+
+    font-size: 20px;
+
+    color: #777;
+}
+
+
+/* ============================= */
+/* REFUND PENDING */
+/* ============================= */
+
+.refund-line.pending {
+    color: #d88a00;
+}
+
+
+/* ============================= */
+/* REFUND COMPLETED */
+/* ============================= */
+
+.refund-line.completed {
+    color: #16833b;
+}
+
+
+/* ============================= */
+/* REFUND AMOUNT */
+/* ============================= */
+
+.refund-amount {
+    margin: 10px 0 0 0;
+
+    padding-top: 10px;
+
+    border-top: 1px solid #eee;
+
+    font-size: 14px;
+
+    color: #555;
+}
+
+
+/* ============================= */
+/* NO BOOKINGS / LOADING */
+/* ============================= */
+
+.no-bookings,
+.loading {
+    text-align: center;
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 10px;
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 600px) {
+
+    .bookings-container {
+        margin: 20px auto;
+    }
+
+    .booking-card {
+        padding: 15px;
+    }
+
+    .cancel-btn {
+        width: 100%;
+    }
+}
+/* ============================= */
+/* MEESHO STYLE CANCEL MODAL */
+/* ============================= */
+
+.cancel-modal-overlay {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+
+    padding: 20px;
+}
+
+
+/* ============================= */
+/* CANCEL MODAL */
+/* ============================= */
+
+.cancel-modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 480px;
+
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 35px 30px 30px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+
+    animation: cancelModalShow 0.2s ease;
+}
+
+
+/* ============================= */
+/* MODAL ANIMATION */
+/* ============================= */
+
+@keyframes cancelModalShow {
+
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* ============================= */
+/* CLOSE BUTTON */
+/* ============================= */
+
+.close-modal {
+    position: absolute;
+
+    top: 10px;
+    right: 15px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 30px;
+
+    color: #555;
+
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #222;
+}
+
+
+/* ============================= */
+/* CANCEL ICON */
+/* ============================= */
+
+.cancel-icon {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffe5e5;
+
+    border-radius: 50%;
+
+    font-size: 30px;
+}
+
+
+/* ============================= */
+/* MODAL HEADING */
+/* ============================= */
+
+.cancel-modal h2 {
+    margin: 0 0 12px;
+
+    font-size: 25px;
+
+    color: #222;
+}
+
+
+/* ============================= */
+/* MODAL MESSAGE */
+/* ============================= */
+
+.cancel-modal p {
+    margin: 0 auto 28px;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    color: #666;
+
+    max-width: 350px;
+}
+
+
+/* ============================= */
+/* MODAL BUTTONS */
+/* ============================= */
+
+.cancel-modal-buttons {
+    display: flex;
+
+    gap: 12px;
+
+    justify-content: center;
+}
+
+
+/* ============================= */
+/* COMMON BUTTON */
+/* ============================= */
+
+.keep-booking-btn,
+.confirm-cancel-btn {
+    flex: 1;
+
+    padding: 13px 15px;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* ============================= */
+/* KEEP BOOKING */
+/* ============================= */
+
+.keep-booking-btn {
+    background: white;
+
+    color: #444;
+
+    border: 1px solid #bbb;
+}
+
+.keep-booking-btn:hover {
+    background: #f5f5f5;
+}
+
+
+/* ============================= */
+/* CONFIRM CANCEL */
+/* ============================= */
+
+.confirm-cancel-btn {
+    background: #d32f2f;
+
+    color: white;
+
+    border: 1px solid #d32f2f;
+}
+
+.confirm-cancel-btn:hover {
+    background: #b71c1c;
+}
+
+
+/* ============================= */
+/* MOBILE MODAL */
+/* ============================= */
+
+@media (max-width: 600px) {
+
+    .cancel-modal {
+        padding: 30px 20px 25px;
+    }
+
+    .cancel-modal-buttons {
+        flex-direction: column;
+    }
+
+    .keep-booking-btn,
+    .confirm-cancel-btn {
+        width: 100%;
+    }
+}

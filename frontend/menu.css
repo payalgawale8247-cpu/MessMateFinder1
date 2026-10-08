@@ -1,0 +1,107 @@
+/* ============================= */
+/* GENERAL */
+/* ============================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: #f6f7fb;
+    color: #222;
+}
+
+
+/* ============================= */
+/* CONTAINER */
+/* ============================= */
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ============================= */
+/* HEADINGS */
+/* ============================= */
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#messLocation {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+
+/* ============================= */
+/* MENU CONTAINER */
+/* ============================= */
+
+#menuContainer {
+    margin-top: 20px;
+}
+
+
+/* ============================= */
+/* MENU CARD */
+/* ============================= */
+
+.menu-card {
+    background: #f9fafc;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.menu-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.menu-card p {
+    margin: 6px 0;
+}
+
+
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+
+.button-group {
+    text-align: center;
+    margin-top: 30px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    background: #333;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.9;
+}
