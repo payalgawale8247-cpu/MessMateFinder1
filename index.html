@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MessMateFinder</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="brand">
+            <h1>🍴 MessMateFinder</h1>
+            <p>Find the best mess near you</p>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html" class="active">Home</a>
+            <a href="location.html">📍 Location</a>
+            <a href="about.html">About</a>
+             <a href="favorites.html">❤️ Favorites</a>
+            <a href="profile.html">👤 Profile</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+       <!-- SEARCH -->
+        <div class="search-area">
+            <input
+                type="text"
+                id="searchBox"
+                placeholder="Search mess, location or food type..."
+                onkeyup="filterMesses()">
+        </div>
+
+        <!-- MAIN FILTERS -->
+        <div class="filters">
+            <button onclick="setFilter('All')">
+                All
+            </button>
+
+            <button onclick="setFilter('Veg')">
+                Veg
+            </button>
+
+            <button onclick="setFilter('Non-Veg')">
+                Non-Veg
+            </button>
+
+            <button
+                id="advancedFilterButton"
+                onclick="toggleAdvancedOptions()">
+                🔎 Advanced Filter
+                <span id="advancedArrow">▼</span>
+            </button>
+        </div>
+
+        <!-- ADVANCED FILTER -->
+        <div id="advancedOptions" class="advanced-options">
+
+            <!-- DISTANCE -->
+            <div class="advanced-filter-item">
+                <button
+                    type="button"
+                    class="advanced-filter-title"
+                    onclick="toggleFilterSection('distanceOptions', 'distanceArrow')">
+                    <span>📍 Distance</span>
+                    <span id="distanceArrow">›</span>
+                </button>
+
+                <div id="distanceOptions" class="advanced-filter-options">
+                    <button onclick="setFilter('1 km')">
+                        Within 1 km
+                    </button>
+
+                    <button onclick="setFilter('3 km')">
+                        Within 3 km
+                    </button>
+
+                    <button onclick="setFilter('5 km')">
+                        Within 5 km
+                    </button>
+                </div>
+            </div>
+
+            <!-- AVAILABILITY -->
+            <div class="advanced-filter-item">
+                <button
+                    type="button"
+                    class="advanced-filter-title"
+                    onclick="toggleFilterSection('availabilityOptions', 'availabilityArrow')">
+                    <span>🟢 Availability</span>
+                    <span id="availabilityArrow">›</span>
+                </button>
+
+                <div id="availabilityOptions" class="advanced-filter-options">
+                    <button onclick="setFilter('Open Now')">
+                        🟢 Open Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- FOOD OPTIONS -->
+            <div class="advanced-filter-item">
+                <button
+                    type="button"
+                    class="advanced-filter-title"
+                    onclick="toggleFilterSection('foodOptions', 'foodArrow')">
+                    <span>🍱 Food Options</span>
+                    <span id="foodArrow">›</span>
+                </button>
+
+                <div id="foodOptions" class="advanced-filter-options">
+                    <button onclick="setFilter('Homemade')">
+                        🏠 Homemade
+                    </button>
+
+                    <button onclick="setFilter('Hotel Thali')">
+                        🍱 Hotel Thali
+                    </button>
+                </div>
+            </div>
+
+            <!-- RATING -->
+            <div class="advanced-filter-item">
+                <button
+                    type="button"
+                    class="advanced-filter-title"
+                    onclick="toggleFilterSection('ratingOptions', 'ratingArrow')">
+                    <span>⭐ Rating</span>
+                    <span id="ratingArrow">›</span>
+                </button>
+
+                <div id="ratingOptions" class="advanced-filter-options">
+                    <button onclick="setFilter('4.5+')">
+                        ⭐ 4.5+
+                    </button>
+
+                    <button onclick="setFilter('4.0+')">
+                        ⭐ 4.0+
+                    </button>
+
+                    <button onclick="setFilter('3.5+')">
+                        ⭐ 3.5+
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRICE RANGE -->
+            <div class="advanced-filter-item">
+                <button
+                    type="button"
+                    class="advanced-filter-title"
+                    onclick="toggleFilterSection('priceOptions', 'priceArrow')">
+                    <span>💰 Price Range</span>
+                    <span id="priceArrow">›</span>
+                </button>
+
+                <div id="priceOptions" class="advanced-filter-options">
+                    <button onclick="setFilter('₹50 - ₹80')">
+                        ₹50 - ₹80
+                    </button>
+
+                    <button onclick="setFilter('₹81 - ₹100')">
+                        ₹81 - ₹100
+                    </button>
+
+                    <button onclick="setFilter('₹101 - ₹150')">
+                        ₹101 - ₹150
+                    </button>
+
+                    <button onclick="setFilter('₹150+')">
+                        ₹150+
+                    </button>
+                </div>
+            </div>
+
+            <!-- CLEAR FILTERS -->
+            <div class="clear-filter-container">
+                <button
+                    type="button"
+                    class="clear-filter-button"
+                    onclick="setFilter('All')">
+                    ✖ Clear Filters
+                </button>
+            </div>
+
+        </div>
+
+        <!-- MESS LIST -->
+        <section id="messContainer">
+            <p class="no-result">
+                Loading messes...
+            </p>
+        </section>
+
+    </main>
+
+    <!-- JAVASCRIPT -->
+    <script src="js/script.js"></script>
+
+</body>
+</html>

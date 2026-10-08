@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Details - MessMateFinder</title>
+    <link rel="stylesheet" href="css/details.css">
+</head>
+<body>
+    <div class="container">
+        <!-- MESS DETAILS -->
+        <h1 id="messName">Loading...</h1>
+
+        <p>
+            📍 Location:
+            <span id="location"></span>
+        </p>
+
+        <p>
+            🍴 Food Type:
+            <span id="foodType"></span>
+        </p>
+
+        <p>
+            💰 Price:
+            ₹<span id="price"></span>
+        </p>
+
+        <p>
+            ⭐ Rating:
+            <span id="rating"></span>
+        </p>
+
+        <p>
+            📝 Description:
+            <span id="description"></span>
+        </p>
+
+        <p>
+            🕐 Opening:
+            <span id="openingTime"></span>
+        </p>
+
+        <p>
+            🕐 Closing:
+            <span id="closingTime"></span>
+        </p>
+
+        <!-- BUTTONS -->
+        <div class="button-group">
+            <button onclick="goBack()">
+                ← Back
+            </button>
+
+            <button onclick="bookMess()">
+                Book Now
+            </button>
+
+            <button onclick="openMenu()">
+                🍽️ Daily Menu
+            </button>
+        </div>
+
+        <!-- REVIEWS & RATINGS -->
+        <div class="reviews-section">
+            <h2>
+                ⭐ Reviews & Ratings
+            </h2>
+
+            <div id="reviewsContainer">
+                <p>
+                    Loading reviews...
+                </p>
+            </div>
+
+            <a
+                id="writeReviewBtn"
+                href="#"
+                class="review-btn"
+            >
+                ✍️ Write a Review
+            </a>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="js/details.js"></script>
+</body>
+</html>

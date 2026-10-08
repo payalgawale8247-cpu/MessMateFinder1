@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment - MessMateFinder</title>
+
+    <link rel="stylesheet" href="css/payment.css">
+</head>
+
+<body>
+
+    <div class="payment-container">
+
+        <h1>💳 Payment</h1>
+
+        <p class="subtitle">
+            Complete your payment to confirm your booking
+        </p>
+
+        <!-- Booking Details -->
+        <div class="booking-summary">
+
+            <h2>📋 Booking Summary</h2>
+
+            <p>
+                <strong>Booking ID:</strong>
+                <span id="bookingId">Loading...</span>
+            </p>
+
+            <p>
+                <strong>Mess:</strong>
+                <span id="messName">Loading...</span>
+            </p>
+
+            <p>
+                <strong>Amount:</strong>
+                ₹<span id="amount">0</span>
+            </p>
+
+        </div>
+
+
+        <!-- Payment Form -->
+        <div class="payment-section">
+
+            <h2>Choose Payment Method</h2>
+
+            <form id="paymentForm">
+
+                <label>
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="UPI"
+                        required>
+                    📱 UPI
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Card">
+                    💳 Debit / Credit Card
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Cash">
+                    💵 Cash
+                </label>
+
+                <button type="submit">
+                    Pay Now
+                </button>
+
+            </form>
+
+            <p id="paymentMessage"></p>
+
+        </div>
+
+
+        <a href="index.html" class="back-btn">
+            ← Back to Home
+        </a>
+
+    </div>
+
+
+    <script src="js/payment.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location - MessMateFinder</title>
+    <link rel="stylesheet" href="css/location.css">
+</head>
+<body>
+    <div class="location-container">
+        <h1>📍 Find Mess Near You</h1>
+        <p class="subtitle">Select your location to discover nearby messes</p>
+
+        <div class="location-selection">
+            <div class="location-field">
+                <label for="stateSelect">State</label>
+                <select id="stateSelect">
+                    <option value="">Select State</option>
+                </select>
+            </div>
+
+            <div class="location-field">
+                <label for="districtSelect">District</label>
+                <select id="districtSelect" disabled>
+                    <option value="">Select District</option>
+                </select>
+            </div>
+
+            <div class="location-field">
+                <label for="areaSelect">Area</label>
+                <select id="areaSelect" disabled>
+                    <option value="">Select Area</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="locationMessage"></div>
+        <div id="nearbyMesses"></div>
+
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+
+    <script src="js/location.js"></script>
+</body>
+</html>

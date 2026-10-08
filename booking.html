@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Book Mess - MessMateFinder</title>
+
+    <link rel="stylesheet"
+        href="css/booking.css">
+
+</head>
+
+
+<body>
+
+
+    <div class="booking-container">
+
+
+        <h1>🍴 Book Mess</h1>
+
+
+        <!-- ============================= -->
+        <!-- BOOKING FORM -->
+        <!-- ============================= -->
+
+        <form id="bookingForm">
+
+
+            <!-- FULL NAME -->
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+                required>
+
+
+            <!-- MOBILE NUMBER -->
+
+            <label for="mobile">
+                Mobile Number
+            </label>
+
+            <input
+                type="tel"
+                id="mobile"
+                placeholder="Enter your mobile number"
+                required>
+
+
+            <!-- MEAL -->
+
+            <label for="meal">
+                Select Meal
+            </label>
+
+            <select id="meal" required>
+
+                <option value="">
+                    Select Meal
+                </option>
+
+                <option value="Breakfast">
+                    Breakfast
+                </option>
+
+                <option value="Lunch">
+                    Lunch
+                </option>
+
+                <option value="Dinner">
+                    Dinner
+                </option>
+
+            </select>
+
+
+            <!-- BOOKING DATE -->
+
+            <label for="bookingDate">
+                Booking Date
+            </label>
+
+            <input
+                type="date"
+                id="bookingDate"
+                required>
+
+
+            <!-- BOOKING TIME -->
+
+            <label for="bookingTime">
+                Booking Time
+            </label>
+
+            <input
+                type="time"
+                id="bookingTime"
+                required>
+
+
+            <!-- NUMBER OF PEOPLE -->
+
+            <label for="people">
+                Number of People
+            </label>
+
+            <input
+                type="number"
+                id="people"
+                min="1"
+                value="1"
+                required>
+
+
+            <!-- CONFIRM BOOKING -->
+
+            <button type="submit">
+                Confirm Booking
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- BOOKING CONFIRMATION POPUP -->
+    <!-- ============================= -->
+
+    <div id="confirmationPopup"
+        class="popup-overlay">
+
+
+        <div class="popup-box">
+
+
+            <h2>
+                ⚠️ Cancellation Policy
+            </h2>
+
+
+            <p>
+                You can cancel your booking within
+                <strong>
+                    30 minutes after the scheduled
+                    booking time.
+                </strong>
+            </p>
+
+
+            <p>
+                <strong>Example:</strong>
+                Booking at
+                <strong>7:00 PM</strong>
+                →
+                Cancellation allowed until
+                <strong>7:30 PM</strong>.
+            </p>
+
+
+            <div class="popup-buttons">
+
+
+                <button
+                    type="button"
+                    id="backButton"
+                    class="back-button">
+
+                    Back
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="confirmButton"
+                    class="confirm-button">
+
+                    Confirm
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <script src="js/booking.js"></script>
+
+
+</body>
+
+</html>
