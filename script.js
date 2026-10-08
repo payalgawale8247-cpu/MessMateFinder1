@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/api/messes";
+const API_URL = "http://messmatefinder.onrender.com/api/messes
 
 let allMesses = [];
 let selectedFilter = "All";
