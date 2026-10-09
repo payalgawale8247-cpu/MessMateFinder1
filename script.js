@@ -10,19 +10,13 @@ options.classList.toggle("show");
 if (arrow) arrow.textContent = options.classList.contains("show") ? "▲" : "▼";
 }
 
-function toggleFilterSection(sectionId, arrowId) {
-const section = document.getElementById(sectionId);
-const arrow = document.getElementById(arrowId);
-if (!section) return;
-section.classList.toggle("open");
-if (arrow) arrow.textContent = section.classList.contains("open") ? "⌄" : "›";
-}
-
 function showSelectedLocation() {
 const state = localStorage.getItem("selectedState");
 const district = localStorage.getItem("selectedDistrict");
 const element = document.getElementById("selectedLocationText");
-if (state && district && element) element.textContent = "📍 " + district + ", " + state;
+if (state && district && element) {
+element.textContent = "📍 " + district + ", " + state;
+}
 }
 
 function logout() {
@@ -31,12 +25,9 @@ sessionStorage.removeItem("loggedIn");
 window.location.href = "login.html";
 }
 
-function checkLogin() {
-if (!sessionStorage.getItem("loggedIn")) window.location.href = "login.html";
-}
-
 function getMessImage(id) {
-return "images/mess" + (Number(id) >= 1 && Number(id) <= 11 ? Number(id) : 1) + ".jpg";
+const number = Number(id);
+return "images/mess" + (number >= 1 && number <= 11 ? number : 1) + ".jpg";
 }
 
 function getFavorites() {
@@ -55,7 +46,9 @@ return getFavorites().includes(Number(id));
 function toggleFavorite(id) {
 const messId = Number(id);
 let favorites = getFavorites();
-favorites = favorites.includes(messId) ? favorites.filter(id => id !== messId) : [...favorites, messId];
+favorites = favorites.includes(messId)
+? favorites.filter(item => item !== messId)
+: [...favorites, messId];
 localStorage.setItem("favoriteMesses", JSON.stringify(favorites));
 filterMesses();
 }
@@ -71,7 +64,9 @@ if (!Array.isArray(data)) throw new Error("Invalid mess data");
 allMesses = data;
 filterMesses();
 } catch (error) {
-if (container) container.innerHTML = "<p class='no-result'>Unable to load messes. Please try again later.</p>";
+if (container) {
+container.innerHTML = "<p class='no-result'>Unable to load messes. Please try again later.</p>";
+}
 console.error("Mess loading failed:", error);
 }
 }
@@ -122,7 +117,9 @@ const detailsButton = document.createElement("button");
 detailsButton.type = "button";
 detailsButton.className = "details-btn";
 detailsButton.textContent = "View Details";
-detailsButton.addEventListener("click", () => viewDetails(id));
+detailsButton.addEventListener("click", () => {
+window.location.href = "details.html?id=" + encodeURIComponent(id);
+});
 content.append(title, location, food, price, rating, detailsButton);
 card.append(imageContainer, content);
 container.appendChild(card);
@@ -150,7 +147,7 @@ const homemade = mess.homemade === true || String(mess.homemade).toLowerCase() =
 const hotelThali = mess.hotel_thali === true || String(mess.hotel_thali).toLowerCase() === "true";
 const searchMatch = !search || name.includes(search) || location.includes(search) || food.includes(search) || messType.includes(search);
 let foodMatch = true;
-if (selectedFilter === "Veg") foodMatch = food.includes("veg") && !food.includes("non-veg");
+if (selectedFilter === "Veg") foodMatch = food.includes("veg") && !food.includes("non-veg") && !food.includes("non veg");
 if (selectedFilter === "Non-Veg") foodMatch = food.includes("non-veg") || food.includes("non veg");
 let typeMatch = true;
 if (selectedFilter === "Homemade") typeMatch = messType === "homemade" || homemade;
@@ -172,10 +169,6 @@ if (selectedFilter === "3.5+") ratingMatch = rating >= 3.5;
 return searchMatch && foodMatch && typeMatch && availabilityMatch && distanceMatch && priceMatch && ratingMatch;
 });
 displayMesses(result);
-}
-
-function viewDetails(id) {
-window.location.href = "details.html?id=" + encodeURIComponent(id);
 }
 
 showSelectedLocation();
