@@ -1,256 +1,54 @@
-const API_URL = "https://messmatefinder.onrender.com/api/messes";
-let allMesses = [];
-let selectedFilter = "All";
+<!DOCTYPE html>
 
-function toggleAdvancedOptions() {
-const options = document.getElementById("advancedOptions");
-const arrow = document.getElementById("advancedArrow");
-if (!options) return;
-const isOpen = options.classList.toggle("show");
-if (arrow) arrow.textContent = isOpen ? "▲" : "▼";
-}
-
-function toggleFilterSection(sectionId, arrowId) {
-const section = document.getElementById(sectionId);
-const arrow = document.getElementById(arrowId);
-if (!section) return;
-const isOpen = section.classList.toggle("open");
-if (arrow) arrow.textContent = isOpen ? "⌄" : "›";
-}
-
-function showSelectedLocation() {
-const state = localStorage.getItem("selectedState");
-const district = localStorage.getItem("selectedDistrict");
-const locationText = document.getElementById("selectedLocationText");
-if (state && district && locationText) {
-locationText.textContent = "📍 " + district + ", " + state;
-}
-}
-
-function logout() {
-localStorage.removeItem("user_id");
-sessionStorage.removeItem("loggedIn");
-window.location.href = "login.html";
-}
-
-function checkLogin() {
-if (!sessionStorage.getItem("loggedIn")) {
-window.location.href = "login.html";
-}
-}
-
-function getMessImage(id) {
-const images = {
-1: "images/mess1.jpg",
-2: "images/mess2.jpg",
-3: "images/mess3.jpg",
-4: "images/mess4.jpg",
-5: "images/mess5.jpg",
-6: "images/mess6.jpg",
-7: "images/mess7.jpg",
-8: "images/mess8.jpg",
-9: "images/mess9.jpg",
-10: "images/mess10.jpg",
-11: "images/mess11.jpg"
-};
-return images[id] || "images/mess1.jpg";
-}
-
-function getFavorites() {
-try {
-const favorites = JSON.parse(localStorage.getItem("favoriteMesses") || "[]");
-return Array.isArray(favorites) ? favorites.map(Number) : [];
-} catch {
-return [];
-}
-}
-
-function isFavorite(id) {
-return getFavorites().includes(Number(id));
-}
-
-function toggleFavorite(id) {
-const messId = Number(id);
-let favorites = getFavorites();
-if (favorites.includes(messId)) {
-favorites = favorites.filter(favoriteId => favoriteId !== messId);
-} else {
-favorites.push(messId);
-}
-localStorage.setItem("favoriteMesses", JSON.stringify(favorites));
-filterMesses();
-}
-
-async function loadMesses() {
-const container = document.getElementById("messContainer");
-if (container) {
-container.innerHTML = "<p class='no-result'>Loading messes...</p>";
-}
-try {
-const response = await fetch(API_URL);
-if (!response.ok) throw new Error("API error: " + response.status);
-const data = await response.json();
-if (!Array.isArray(data)) throw new Error("Invalid mess data");
-allMesses = data;
-filterMesses();
-} catch (error) {
-if (container) {
-container.innerHTML = "<p class='no-result'>Unable to load messes. Please try again later.</p>";
-}
-console.error("Mess loading failed:", error);
-}
-}
-
-function displayMesses(messes) {
-const container = document.getElementById("messContainer");
-if (!container) return;
-container.innerHTML = "";
-if (!messes.length) {
-container.innerHTML = "<p class='no-result'>No mess found. Try another search or filter.</p>";
-return;
-}
-
-```
-messes.forEach(mess => {
-    const id = Number(mess.mess_id);
-    const favorite = isFavorite(id);
-    const card = document.createElement("div");
-    card.className = "mess-card";
-    const imageContainer = document.createElement("div");
-    imageContainer.className = "image-container";
-    const image = document.createElement("img");
-    image.src = getMessImage(id);
-    image.alt = mess.mess_name || "Mess";
-    image.className = "mess-image";
-    image.onerror = function() {
-        this.onerror = null;
-        this.src = "images/mess1.jpg";
-    };
-
-    const favoriteButton = document.createElement("button");
-    favoriteButton.className = "favorite-btn" + (favorite ? " active" : "");
-    favoriteButton.type = "button";
-    favoriteButton.textContent = favorite ? "❤️" : "♡";
-    favoriteButton.title = favorite ? "Remove from Favorites" : "Add to Favorites";
-    favoriteButton.setAttribute("aria-label", favoriteButton.title);
-    favoriteButton.addEventListener("click", () => toggleFavorite(id));
-
-    imageContainer.append(image, favoriteButton);
-
-    const content = document.createElement("div");
-    content.className = "mess-card-content";
-
-    const title = document.createElement("h2");
-    title.textContent = mess.mess_name || "Unnamed Mess";
-
-    const location = document.createElement("p");
-    location.textContent = "📍 " + (mess.location || "Location not available");
-
-    const food = document.createElement("p");
-    food.textContent = "🍴 " + (mess.food_type || "Food type not available");
-
-    const price = document.createElement("p");
-    price.textContent = "💰 ₹" + (mess.price ?? "N/A");
-
-    const rating = document.createElement("p");
-    rating.className = "rating";
-    rating.textContent = "⭐ " + (mess.rating ?? "N/A");
-
-    const detailsButton = document.createElement("button");
-    detailsButton.className = "details-btn";
-    detailsButton.type = "button";
-    detailsButton.textContent = "View Details";
-    detailsButton.addEventListener("click", () => viewDetails(id));
-
-    content.append(title, location, food, price, rating, detailsButton);
-    card.append(imageContainer, content);
-    container.appendChild(card);
-});
-```
-
-}
-
-function setFilter(type) {
-selectedFilter = type;
-if (type === "All") {
-const searchBox = document.getElementById("searchBox");
-if (searchBox) searchBox.value = "";
-}
-filterMesses();
-}
-
-function filterMesses() {
-const searchBox = document.getElementById("searchBox");
-const search = searchBox ? searchBox.value.trim().toLowerCase() : "";
-
-```
-const result = allMesses.filter(mess => {
-    const name = String(mess.mess_name || "").toLowerCase();
-    const location = String(mess.location || "").toLowerCase();
-    const food = String(mess.food_type || "").toLowerCase();
-    const messType = String(mess.mess_type || "").toLowerCase();
-    const price = Number(mess.price);
-    const rating = Number(mess.rating);
-    const distance = Number(mess.distance_km);
-    const isOpen = mess.open_now === true || String(mess.open_now).toLowerCase() === "true";
-    const homemade = mess.homemade === true || String(mess.homemade).toLowerCase() === "true";
-    const hotelThali = mess.hotel_thali === true || String(mess.hotel_thali).toLowerCase() === "true";
-
-    let searchMatch = !search ||
-        name.includes(search) ||
-        location.includes(search) ||
-        food.includes(search) ||
-        messType.includes(search);
-
-    if (search === "veg") {
-        searchMatch = food.includes("veg");
-    } else if (search === "non-veg" || search === "non veg") {
-        searchMatch = food.includes("non-veg") || food.includes("non veg");
-    }
-
-    let foodMatch = true;
-    if (selectedFilter === "Veg") {
-        foodMatch = food.includes("veg");
-    } else if (selectedFilter === "Non-Veg") {
-        foodMatch = food.includes("non-veg") || food.includes("non veg");
-    }
-
-    let typeMatch = true;
-    if (selectedFilter === "Homemade") {
-        typeMatch = messType === "homemade" || homemade;
-    } else if (selectedFilter === "Hotel Thali") {
-        typeMatch = messType === "hotel thali" || hotelThali;
-    }
-
-    let availabilityMatch = selectedFilter !== "Open Now" || isOpen;
-    let distanceMatch = true;
-    if (selectedFilter === "1 km") distanceMatch = Number.isFinite(distance) && distance <= 1;
-    if (selectedFilter === "3 km") distanceMatch = Number.isFinite(distance) && distance <= 3;
-    if (selectedFilter === "5 km") distanceMatch = Number.isFinite(distance) && distance <= 5;
-
-    let priceMatch = true;
-    if (selectedFilter === "₹50 - ₹80") priceMatch = price >= 50 && price <= 80;
-    if (selectedFilter === "₹81 - ₹100") priceMatch = price >= 81 && price <= 100;
-    if (selectedFilter === "₹101 - ₹150") priceMatch = price >= 101 && price <= 150;
-    if (selectedFilter === "₹150+") priceMatch = price > 150;
-
-    let ratingMatch = true;
-    if (selectedFilter === "4.5+") ratingMatch = rating >= 4.5;
-    if (selectedFilter === "4.0+") ratingMatch = rating >= 4.0;
-    if (selectedFilter === "3.5+") ratingMatch = rating >= 3.5;
-
-    return searchMatch && foodMatch && typeMatch && availabilityMatch && distanceMatch && priceMatch && ratingMatch;
-});
-
-displayMesses(result);
-```
-
-}
-
-function viewDetails(id) {
-window.location.href = "details.html?id=" + encodeURIComponent(id);
-}
-
-showSelectedLocation();
-checkLogin();
-loadMesses();
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MessMateFinder</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <h1>MessMateFinder</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="location.html">Location</a>
+        <a href="about.html">About</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="profile.html">Profile</a>
+        <a href="#" onclick="logout();return false;">Logout</a>
+    </nav>
+</header>
+<main>
+    <h2>Find Your Nearby Mess</h2>
+    <p id="selectedLocationText">Find food that feels like home.</p>
+    <input type="text" id="searchBox" placeholder="Search mess, location or food..." oninput="filterMesses()">
+    <div class="filter-buttons">
+        <button type="button" onclick="setFilter('All')">All</button>
+        <button type="button" onclick="setFilter('Veg')">Veg</button>
+        <button type="button" onclick="setFilter('Non-Veg')">Non-Veg</button>
+        <button type="button" onclick="toggleAdvancedOptions()">Advanced Filters <span id="advancedArrow">▼</span></button>
+    </div>
+    <div id="advancedOptions" class="advanced-options">
+        <button type="button" onclick="setFilter('Open Now')">Open Now</button>
+        <button type="button" onclick="setFilter('Homemade')">Homemade</button>
+        <button type="button" onclick="setFilter('Hotel Thali')">Hotel Thali</button>
+        <button type="button" onclick="setFilter('1 km')">Within 1 km</button>
+        <button type="button" onclick="setFilter('3 km')">Within 3 km</button>
+        <button type="button" onclick="setFilter('5 km')">Within 5 km</button>
+        <button type="button" onclick="setFilter('₹50 - ₹80')">₹50–₹80</button>
+        <button type="button" onclick="setFilter('₹81 - ₹100')">₹81–₹100</button>
+        <button type="button" onclick="setFilter('₹101 - ₹150')">₹101–₹150</button>
+        <button type="button" onclick="setFilter('₹150+')">₹150+</button>
+        <button type="button" onclick="setFilter('4.5+')">Rating 4.5+</button>
+        <button type="button" onclick="setFilter('4.0+')">Rating 4.0+</button>
+        <button type="button" onclick="setFilter('4.0+')">Rating 3.5+</button>
+        <button type="button" onclick="setFilter('All')">Clear Filters</button>
+    </div>
+    <section id="messContainer">
+        <p>Loading messes...</p>
+    </section>
+</main>
+<script src="js/script.js"></script>
+</body>
+</html>
