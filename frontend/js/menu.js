@@ -56,6 +56,9 @@ const demo=demoMesses.find(m=>String(m.mess_id)===String(messId));
 if(demo){
 messName.textContent=demo.mess_name;
 messLocation.textContent="📍 "+demo.location;
+}else{
+messName.textContent="Mess Details";
+messLocation.textContent="";
 }
 try{
 const mess=await fetchData("/api/messes/"+encodeURIComponent(messId));
@@ -67,58 +70,85 @@ messLocation.textContent="📍 "+(mess.location||"");
 console.log("Mess details running in Demo Mode");
 }
 }
-function createMenuCard(title,menu){
-const card=document.createElement("div");
-card.className="menu-card";
-const heading=document.createElement("h3");
-heading.textContent=title;
-card.appendChild(heading);
-[["🌅 Breakfast",menu.breakfast],["☀️ Lunch",menu.lunch],["🌙 Dinner",menu.dinner]].forEach(([label,value])=>{
-const p=document.createElement("p");
-const strong=document.createElement("strong");
-strong.textContent=label+": ";
-p.append(strong,document.createTextNode(value||"Not available"));
-card.appendChild(p);
-});
-return card;
-}
-function displayMenu(daily,weekly,isDemo){
+function displayMenu(daily,weekly){
 menuContainer.innerHTML="";
-if(isDemo){
-const note=document.createElement("p");
-note.textContent="Sample Menu (Demo Mode)";
-menuContainer.appendChild(note);
-}
 const todayHeading=document.createElement("h2");
 todayHeading.textContent="📅 Today's Menu";
 menuContainer.appendChild(todayHeading);
 if(daily){
-menuContainer.appendChild(createMenuCard("Today's Meals",daily));
+const todayGrid=document.createElement("div");
+todayGrid.className="today-menu-grid";
+[["🌅","Breakfast",daily.breakfast],["☀️","Lunch",daily.lunch],["🌙","Dinner",daily.dinner]].forEach(([emoji,label,food])=>{
+const card=document.createElement("div");
+card.className="today-meal-card";
+const icon=document.createElement("div");
+icon.className="meal-icon";
+icon.textContent=emoji;
+const title=document.createElement("h3");
+title.textContent=label;
+const description=document.createElement("p");
+description.textContent=food||"Not available";
+card.append(icon,title,description);
+todayGrid.appendChild(card);
+});
+menuContainer.appendChild(todayGrid);
 }else{
 const p=document.createElement("p");
 p.textContent="Today's menu is not available.";
 menuContainer.appendChild(p);
 }
-const weekHeading=document.createElement("h2");
-weekHeading.textContent="📆 Weekly Menu";
-menuContainer.appendChild(weekHeading);
-if(Array.isArray(weekly)&&weekly.length){
-const wrapper=document.createElement("div");
-wrapper.className="weekly-menu";
-weekly.forEach(day=>wrapper.appendChild(createMenuCard("📅 "+(day.day||"Day"),day)));
-menuContainer.appendChild(wrapper);
-}else{
+const weeklyHeading=document.createElement("h2");
+weeklyHeading.textContent="📆 Weekly Menu";
+menuContainer.appendChild(weeklyHeading);
+if(!Array.isArray(weekly)||!weekly.length){
 const p=document.createElement("p");
 p.textContent="Weekly menu is not available.";
 menuContainer.appendChild(p);
+return;
 }
+const dayBar=document.createElement("div");
+dayBar.className="weekly-day-bar";
+const dayContent=document.createElement("div");
+dayContent.className="weekly-day-content";
+weekly.forEach(day=>{
+const button=document.createElement("button");
+button.type="button";
+button.className="weekly-day-btn";
+button.textContent=day.day||"Day";
+button.onclick=()=>{
+dayBar.querySelectorAll("button").forEach(btn=>btn.classList.remove("active"));
+button.classList.add("active");
+dayContent.innerHTML="";
+const card=document.createElement("div");
+card.className="selected-day-card";
+const heading=document.createElement("h3");
+heading.textContent="📅 "+(day.day||"Day");
+card.appendChild(heading);
+[["🌅","Breakfast",day.breakfast],["☀️","Lunch",day.lunch],["🌙","Dinner",day.dinner]].forEach(([emoji,label,food])=>{
+const row=document.createElement("div");
+row.className="day-meal-row";
+const name=document.createElement("strong");
+name.textContent=emoji+" "+label;
+const value=document.createElement("span");
+value.textContent=food||"Not available";
+row.append(name,value);
+card.appendChild(row);
+});
+dayContent.appendChild(card);
+};
+dayBar.appendChild(button);
+});
+menuContainer.append(dayBar,dayContent);
+const todayName=new Date().toLocaleDateString("en-US",{weekday:"long"});
+const todayButton=[...dayBar.children].find(button=>button.textContent.toLowerCase()===todayName.toLowerCase());
+(todayButton||dayBar.firstElementChild).click();
 }
 async function loadMenu(){
 if(!messId){
 menuContainer.textContent="Please select a mess from the Home Page.";
 return;
 }
-displayMenu(demoDaily,demoWeekly,true);
+displayMenu(demoDaily,demoWeekly);
 const results=await Promise.allSettled([
 fetchData("/api/menu/"+encodeURIComponent(messId)),
 fetchData("/api/menu/weekly/"+encodeURIComponent(messId))
@@ -126,7 +156,7 @@ fetchData("/api/menu/weekly/"+encodeURIComponent(messId))
 const daily=results[0].status==="fulfilled"?results[0].value:null;
 const weekly=results[1].status==="fulfilled"?results[1].value:null;
 if(daily||Array.isArray(weekly)){
-displayMenu(daily&&typeof daily==="object"&&!Array.isArray(daily)?daily:null,Array.isArray(weekly)?weekly:[],false);
+displayMenu(daily&&typeof daily==="object"&&!Array.isArray(daily)?daily:null,Array.isArray(weekly)?weekly:[]);
 }
 }
 loadMessDetails();
