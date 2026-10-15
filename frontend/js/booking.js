@@ -1,5 +1,4 @@
 
-const API_URL="https://messmatefinder.onrender.com/api";
 const messId=new URLSearchParams(window.location.search).get("id");
 const bookingForm=document.getElementById("bookingForm");
 const confirmationPopup=document.getElementById("confirmationPopup");
@@ -71,44 +70,36 @@ confirmationPopup.style.display="flex";
 backButton.addEventListener("click",function(){
 confirmationPopup.style.display="none";
 });
-confirmButton.addEventListener("click",async function(){
+confirmButton.addEventListener("click",function(){
 if(!bookingData){
 alert("Booking information is missing.");
 return;
 }
 confirmButton.disabled=true;
 confirmButton.textContent="Processing...";
-const controller=new AbortController();
-const timeout=setTimeout(()=>controller.abort(),15000);
 try{
-const response=await fetch(API_URL+"/bookings",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(bookingData),
-signal:controller.signal
-});
-const result=await response.json();
-if(!response.ok){
-throw new Error(result.error||"Booking failed.");
+const bookingId="DEMO-"+Date.now();
+const savedBooking={
+...bookingData,
+booking_id:bookingId,
+status:"Pending Payment",
+demo:true,
+created_at:new Date().toISOString()
+};
+const existingBookings=JSON.parse(localStorage.getItem("demoBookings")||"[]");
+if(!Array.isArray(existingBookings)){
+throw new Error("Invalid saved bookings.");
 }
-if(!result.booking_id){
-throw new Error("Booking ID not received from server.");
-}
-localStorage.setItem("booking_id",String(result.booking_id));
-localStorage.setItem("bookingData",JSON.stringify(result));
-alert("Booking confirmed successfully!");
-window.location.href="payment.html?booking_id="+encodeURIComponent(result.booking_id);
+existingBookings.push(savedBooking);
+localStorage.setItem("demoBookings",JSON.stringify(existingBookings));
+localStorage.setItem("booking_id",bookingId);
+localStorage.setItem("bookingData",JSON.stringify(savedBooking));
+alert("Demo booking created successfully! Proceed to payment.");
+window.location.href="payment.html?booking_id="+encodeURIComponent(bookingId);
 }catch(error){
-console.error("Booking Error:",error);
-if(error.name==="AbortError"){
-alert("Server response timed out. Please check booking status before trying again.");
-}else{
-alert("Unable to confirm booking: "+error.message);
-}
-}finally{
-clearTimeout(timeout);
+console.error("Demo Booking Error:",error);
+alert("Unable to save demo booking: "+error.message);
 confirmButton.disabled=false;
 confirmButton.textContent="Confirm";
 }
 });
-
