@@ -9,3 +9,5 @@
 .gallery-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:24px;z-index:9999}
 .gallery-lightbox img{max-width:95%;max-height:85vh;object-fit:contain;border-radius:12px}
 .gallery-close{position:absolute;top:15px;right:25px;background:none;border:0;color:#fff;font-size:38px;cursor:pointer}
+.gallery-grid{grid-template-columns:repeat(auto-fill,minmax(120px,150px));gap:12px}
+.gallery-grid img{width:100%!important;height:120px!important;object-fit:cover;border-radius:10px}
